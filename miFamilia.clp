@@ -64,7 +64,7 @@
 
 (defrule dualidad 
     (razonar)
-    (Relacion (tipo ?r) (sujero ?x) (objeto ?y))
+    (Relacion (tipo ?r) (sujeto ?x) (objeto ?y))
     (dual ?r ?t) => (assert (Relacion (tipo ?t) (sujeto ?y) (objeto ?x)))
 )
 
