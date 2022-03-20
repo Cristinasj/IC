@@ -68,13 +68,13 @@
     (dual ?r ?t) => (assert (Relacion (tipo ?t) (sujeto ?y) (objeto ?x)))
 )
 
-(defrule composicion 
-    (razonar)
-    (Relacion (tipo ?r) (sujeto ?y) (objeto ?x))
-    (Relacion (tipo ?t) (sujeto ?x) (objeto ?z)
-    (comp ?r ?t ?u)
-    (test (neq ?y ?z)) => (assert (Relacion (tipo ?u) (sujeto ?y) (objeto ?z)))
-)
+(defrule composicion
+   (Relacion (tipo ?r) (sujeto ?y) (objeto ?x))
+   (Relacion (tipo ?t) (sujeto ?x) (objeto ?z))
+   (comp ?r ?t ?u)
+   (test (neq ?y ?z))
+=> 
+   (assert (Relacion (tipo ?u) (sujeto ?y) (objeto ?z))))
 
 (defrule limpiacuniados
     (Relacion (tipo HERMANO) (sujeto ?x) (objeto ?y))
