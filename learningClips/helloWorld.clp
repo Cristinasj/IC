@@ -1,15 +1,25 @@
 ; Datos de personas 
 
-(deftemplate Persona 
-    (field Nombre)
-    (field Edad)
-    (field Sexo)
-    (field EstadoCivil))
+;(deftemplate Persona 
+;    (field Nombre)
+;    (field Edad)
+;    (field Sexo)
+;    (field EstadoCivil))
 
-(deffacts Yo (Persona 
-            (Nombre Cristina)
-            (Edad 20) 
-            (EstadoCivil soltera)
-            (Sexo M)))
+;(deffacts Yo 
+;    (Persona 
+;            (Nombre Cristina)
+;            (Edad 21) 
+;            (EstadoCivil soltera)
+;            (Sexo M)
+;    )
+; )
 
-(defrule )
+(deffacts Hechos (Persona Cristina 21 soltera M))
+
+
+(defrule CristinaTiene21Anos
+    (Persona Cristina 21 soltera M) 
+    => 
+    (printout t crlf "Cristina tiene 21 años")
+)
