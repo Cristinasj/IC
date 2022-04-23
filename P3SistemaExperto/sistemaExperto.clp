@@ -154,6 +154,23 @@
 
 ; Cuando no ha respondido Mucho a ninguna y ha respondido Medio a varias 
 
+(defrule EmpateCSIMedio (Interes mates ~Mucho)(Interes prog ~Mucho)(Interes bd ~Mucho)(Interes hw ~Mucho)(Interes redes ~Mucho)(Interes mates Medio)(Interes bd | prog | redes | hw Medio)
+=> 
+(assert (Consejo Computación_y_Sistemas_Inteligentes "es popular entre el resto de los alumnos y no le va a desagradar")))
+
+(defrule EmpateISMedio (Interes mates ~Mucho)(Interes prog ~Mucho)(Interes bd ~Mucho)(Interes hw ~Mucho)(Interes redes ~Mucho)(Interes prog Medio) (Interes bd | redes | hw Medio)
+=> 
+(assert (Consejo Ingeniería_del_Software "es popular entre el resto de los alumnos y no le va a desagradar")))
+
+(defrule EmpateTICMedio (Interes mates ~Mucho)(Interes prog ~Mucho)(Interes bd ~Mucho)(Interes hw ~Mucho)(Interes redes ~Mucho)(Interes redes Medio) (Interes bd | hw Medio)
+=> 
+(assert (Consejo Tecnologías_de_la_Información "es popular entre el resto de los alumnos y no le va a desagradar")))
+
+(defrule EmpateSIMedio (Interes mates ~Mucho)(Interes prog ~Mucho)(Interes bd ~Mucho)(Interes hw ~Mucho)(Interes redes ~Mucho)(Interes bd Medio) (Interes hw Medio)
+=> 
+(assert (Consejo  "es popular entre el resto de los alumnos y no le va a desagradar")))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; Imprimir resultados 
