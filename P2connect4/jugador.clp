@@ -1,3 +1,6 @@
+; Cristina Sánchez Justicia 
+; 3º CSI IC práctica 2 
+
 ;;;;;;; JUGADOR DE 4 en RAYA ;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 ;;;;;;;;;; Version de 4 en raya clásico: Tablero de 6x7, donde se introducen fichas por arriba
@@ -295,11 +298,44 @@
 ;;;;; ¡¡¡¡¡¡¡¡¡¡ Añadir conocimiento para que juege como vosotros jugariais !!!!!!!!!!!!
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Reglas añadidas por mi 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;; EJERCICIO 1 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; (defrule siguiente_fila )
+; 8 reglas para definir la siguiente y anterior horizontal, vertical, de la diagonal directa y de la diagonal inversa respectivamente 
+
+(defrule siguiente_horizontal (Tablero ?t ?f ?c ?) (test (< ?c 7))
+=>
+(assert (siguiente ?f ?c h ?f (+ ?c 1))))
+
+(defrule siguiente_vertical (Tablero ?t ?f ?c ?) (test (> ?f 1))
+=>
+(assert (siguiente ?f ?c v (- ?f 1) ?c)) )
+
+(defrule siguiente_diagonal1 (Tablero ?t ?f ?c ?) (test (< ?c 7)) (test (> ?f 1))
+=> 
+(assert (siguiente ?f ?c d1 (- ?f 1)(+ ?c 1))))
+
+(defrule siguiente_diagonal2 (Tablero ?t ?f ?c ?) (test (< ?c 7)) (test (< ?f 6))
+=>
+(assert (siguiente ?f ?c d2 (+ ?f 1) (+ ?c 1))))
+
+(defrule anterior_horizontal (Tablero ?t ?f ?c ?) (test (> ?c 1))
+=> 
+(assert (anterior ?f ?c h ?f (- ?c 1))))
+
+(defrule anterior_vertical (Tablero ?t ?f ?c ?) (test (< ?f 6))
+=> 
+(assert (anterior ?f ?c v (+ ?f 1) ?c)))
+
+(defrule anterior_diagonal1 (Tablero ?t ?f ?c ?) (test (> ?c 1)) (test (< ?f 6))
+=> 
+(assert (anterior ?f ?c d1 (+ ?f 1)(- ?c 1))))
+
+(defrule anterior_diagonal2 (Tablero ?t ?f ?c ?) (test (> ?c 1)) (test (< ?f 6))
+=> 
+(assert (anterior ?f ?c d2 (- ?f 1)(- ?c 1))))
 
 ;;;;;;;;;;;;;;;;;;;;;; EJERCICIO 2 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
