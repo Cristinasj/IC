@@ -339,8 +339,66 @@
 
 ;;;;;;;;;;;;;;;;;;;;;; EJERCICIO 2 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+; Está vacía
+(defrule Caeria (Tablero ? 6 ?c _) 
+=> 
+(assert (Caeria 6 ?c)))
+
+; Hay ficha 
+(defrule CaeriaComprobar ?r <- (Caeria ?f ?c) (Tablero ? ?f ?c ?j) (test(neq ?j _)) (test (> ?f 1)) 
+=> 
+(retract ?r)
+(assert (Caeria (- ?f 1) ?c)))
+
+; Está llena
+(defrule eliminar_llena ?r <- (caeria ?f ?c) (Tablero ? ?f ?c M|J)
+(test (eq ?f 1))
+=> 
+(retract ?r))
+
 ;;;;;;;;;;;;;;;;;;;;;; EJERCICIO 3 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Dos en ralla 
+
+(defrule 2raya (Tablero ?t ?f1 ?c1 ?j) (Tablero ?t ?f2 ?c2 ?j) (test (neq ?j _))(siguiente ?f1 ?c1 ?d ?f2 ?c2)
+=>
+(assert (2raya ?t ?d ?f1 ?c1 ?f2 ?c2 ?j)))
 
 ;;;;;;;;;;;;;;;;;;;;;; EJERCICIO 4 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Tres en ralla 
+
+(defrule 3raya (2raya ?t ?d ?f1 ?c1 ?f2 ?c2 ?j) (siguiente ?f2 ?c2 ?d ?f3 ?c3)
+(Tablero ?t ?f3 ?c3 ?j)
+=> 
+(assert (3raya ?t ?d ?f1 ?c1 ?f3 ?c3 ?j)))
 
 ;;;;;;;;;;;;;;;;;;;;;; EJERCICIO 5 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Hay un hueco blanco precedido de 3 fichas
+
+(defrule hueco (3raya ?t ?d ?f1 ?c1 ?f3 ?c3 ?j) (siguiente ?f3 ?c3 ?d ?f4 ?c4) (Caeria ?f4 ?c4)
+=> 
+(assert (ganaria ?t ?j ?c4)))
+
+; Jugar para ganar
+
+(defrule ganar (declare (salience 1000)) ?f <- (Turno M) (ganaria ?t M ?c)
+=> 
+(retract ?f)
+(assert (Juega M ?c))
+(printout t "JUEGO para ganar"))
+
+; Juega para no perder 
+(defrule no_perder (declare (salience 1001)) ?f <- (Turno M) (ganaria ?t J ?c)
+=>
+(retract ?f)
+(assert (Juega M ?c))
+(printout t "JUEGO para no perder"))
+
+; No va a ganar  
+(defrule clisp_normal
+(declare (salience 999))
+?f <- (Turno M)
+=>
+(retract ?f)
+(printout t "JUEGO en el centro " crlf)
+(assert (Juega M 4)) 
+)
